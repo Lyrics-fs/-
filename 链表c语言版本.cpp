@@ -1,16 +1,16 @@
-#include"±êÍ·.h"
+#include"head.h"
 
-//²âÊÔÁ´±íÊÇ·ñÎª¿Õ
+//æµ‹è¯•é“¾è¡¨æ˜¯å¦ä¸ºç©º
 int IsEmpty(List L)
 {
 	return L->Next == NULL;
 }
-//²âÊÔÎ»ÖÃÊÇ·ñÎªÄ©Î²
+//æµ‹è¯•ä½ç½®æ˜¯å¦ä¸ºæœ«å°¾
 int IsLast(Position P, List L)
 {
 	return P->Next == NULL;
 }
-//²éÕÒº¯Êý
+//æŸ¥æ‰¾å‡½æ•°
 Position Find(int X, List L)
 {
 	Position P;
@@ -19,7 +19,7 @@ Position Find(int X, List L)
 		P = P->Next;
 	return P;
 }
-//É¾³ýº¯Êý
+//åˆ é™¤å‡½æ•°
 void Delete(int X, List L)
 {
 	Position P, TmpCell;
@@ -31,7 +31,7 @@ void Delete(int X, List L)
 		free(TmpCell);
 	}
 }
-//²éÕÒÒªÉ¾³ýµÄÔªËØµÄÉÏÒ»¸ö½Úµã
+//æŸ¥æ‰¾è¦åˆ é™¤çš„å…ƒç´ çš„ä¸Šä¸€ä¸ªèŠ‚ç‚¹
 Position FindPrevious(int X, List L)
 {
 	Position P;
@@ -40,13 +40,13 @@ Position FindPrevious(int X, List L)
 		P = P->Next;
 	return P;
 }
-//´íÎó·µ»Ø
+//é”™è¯¯è¿”å›ž
 void FatalError(const char* message) 
 {
 	fprintf(stderr, "Fatal Error: %s\n", message);
 	exit(EXIT_FAILURE);
 }
-//²åÈëº¯Êý
+//æ’å…¥å‡½æ•°
 void Insert(int X, List L, Position P)
 {
 	Position TmpCell;
@@ -59,7 +59,7 @@ void Insert(int X, List L, Position P)
 	TmpCell->Next = P->Next;
 	P->Next = TmpCell;
 }
-//É¾³ýº¯Êý
+//åˆ é™¤å‡½æ•°
 void DeleteList(List L)
 {
 	Position P, Tmp;
