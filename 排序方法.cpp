@@ -163,3 +163,92 @@ void partition(vector<int>& arr, int L, int R, pair<int, int>& p)
 	p.first = less + 1;
 	p.second = more;
 }
+//∂—≈≈–Ú
+void heapSort(vector<int>& arr)
+{
+	for (int i = 0; i < arr.size(); i++)
+	{
+		heapInsert(arr, i);
+	}
+	int heapsize = arr.size();
+	Swap(&arr[0], &arr[--heapsize]);
+	while (heapsize > 0)
+	{
+		heapify(arr, 0, heapsize);
+		Swap(&arr[0], &arr[--heapsize]);
+	}
+}
+void heapInsert(vector<int>& arr, int index)
+{
+	while (arr[index] > arr[(index - 1) / 2])
+	{
+		Swap(&arr[index], &arr[(index - 1) / 2]);
+		index = (index - 1) / 2;
+	}
+}
+void heapify(vector<int>& arr, int index, int heapsize)
+{
+	int left = index * 2 + 1;
+	while (left < heapsize)
+	{
+		int largest = (left + 1) < heapsize && arr[left + 1] > arr[left] ? left + 1 : left;
+		largest = arr[largest] > arr[index] ? largest : index;
+		if (largest == index) break;
+		Swap(&arr[index], &arr[largest]);
+		index = largest;
+		left = index * 2 + 1;
+	}
+}
+//Õ∞≈≈–Ú
+void radixSort(vector<int>& arr)
+{
+	radixSortprocess(arr, 0, arr.size() - 1, maxbits(arr));
+}
+int maxbits(vector<int>& arr)
+{
+	int maxm = -0x3f3f3f3f;
+	for (auto elem : arr)
+	{
+		maxm = max(elem, maxm);
+	}
+	int res = 0;
+	while (maxm)
+	{
+		res++;
+		maxm /= 10;
+	}
+	return res;
+}
+void radixSortprocess(vector<int>& arr, int L, int R, int digit)
+{
+	int radix = 10;
+	int i = 0, j = 0;
+	vector<int> bucket(R - L + 1);
+	for (int d = 1; d <= digit; d++)
+	{
+		vector<int> count(10);
+		for (i = L; i <= R; i++)
+		{
+			j = getDigit(arr[i], d);
+			count[j]++;
+		}
+		for (i = 1; i < radix; i++)
+		{
+			count[i] = count[i] + count[i - 1];
+		}
+		for (i = R; i >= L; i--)
+		{
+			j = getDigit(arr[i], d);
+			bucket[count[j] - 1] = arr[i];
+			count[j]--;
+		}
+		for (i = L, j = 0; i <= R; i++, j++)
+		{
+			arr[i] = bucket[j];
+		}
+	}
+}
+int getDigit(int x, int d)
+{
+	return (x / (int)pow(10, d - 1)) % 10;
+}
