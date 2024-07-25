@@ -2,37 +2,44 @@ class ListNode:
     def __init__(self, value):
         self.value = value
         self.next = None
+        self.prev = None
 
 class LinckedList:
     def __init__(self):
-        self.head = None
+        self.head = ListNode(0)
+        self.tail = ListNode(0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     def append(self, value):
-        if not self.head:
-            self.head = ListNode(value)
-        else:
-            current = self.head
-            while current.next:
-                current = current.next
-            current.next = ListNode(value)
+        new_node = ListNode(value)
+        temp = self.tail.prev
+        temp.next = new_node
+        new_node.prev = temp
+        new_node.next = self.tail
+        self.tail.prev = new_node
+
     
     def prepend(self, value):
         new_head = ListNode(value)
-        new_head.next = self.head
-        self.head = new_head
+        new_head.next = self.head.next
+        self.head.next.prev = new_head
+        new_head.prev = self.head
+        self.head.next = new_head
 
     def display(self):
-        current = self.head
-        while current:
+        current = self.head.next
+        while current is not self.tail:
             print(current.value, end='->')
             current = current.next
         print('None')
 
     def delete(self, value):
-        current = self.head
+        current = self.head.next
 
         if current and current.value == value:
-            self.head = current.next
+            self.head.next = current.next
+            current.next.prev = self.head
             current = None
             return 
         
@@ -45,6 +52,7 @@ class LinckedList:
             return
         
         prev.next = current.next
+        current.next.prev = prev
         current = None
 
 if __name__ == '__main__':
@@ -52,4 +60,6 @@ if __name__ == '__main__':
     ll.append(1)
     ll.append(2)
     ll.append(3)
+    ll.prepend(0)
+    ll.delete(2)
     ll.display()
