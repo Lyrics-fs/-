@@ -17,6 +17,7 @@ TreePosition Find(int X, SearchTree T)
 	{
 		return NULL;
 	}
+
 	if (X < T->Element)
 	{
 		return Find(X, T->Left);
@@ -155,3 +156,4 @@ void PosOrderPrint(SearchTree T)
 	PosOrderPrint(T->Right);
 	cout << T->Element << " ";
 }
+
