@@ -164,7 +164,7 @@ public:
 
 	void Prim(Graph graph, unordered_set<Edge*> result)
 	{
-		priority_queue<Edge*, greater<Edge*>> PQ;
+		priority_queue<Edge*, vector<Edge*>, greater<Edge*>> PQ;
 		unordered_set<GraphNode*> set;
 		for (auto node : graph.nodes)
 		{
